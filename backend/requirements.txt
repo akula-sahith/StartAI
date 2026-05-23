@@ -3,6 +3,8 @@ uvicorn
 sqlalchemy
 psycopg2-binary
 pydantic
+pypdf
+python-multipart
 python-dotenv
 
 langgraph
@@ -11,3 +13,4 @@ langchain-openai
 langchain-google-genai
 
 chromadb
+

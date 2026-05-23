@@ -1,0 +1,116 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    background-color: #020617; /* bg-slate-955 / slate-950 */
+    color: #f8fafc; /* text-slate-50 */
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* Custom high-tech glowing scrollbars */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #020617;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #1e293b;
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #3b82f6;
+  }
+}
+
+/* Glassmorphism panel styles */
+.glass-panel {
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glass-panel-glow {
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(59, 130, 246, 0.15);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37), 
+              0 0 20px rgba(59, 130, 246, 0.05);
+}
+
+.glass-panel-glow-purple {
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(168, 85, 247, 0.15);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37), 
+              0 0 20px rgba(168, 85, 247, 0.05);
+}
+
+/* Ambient glow nodes */
+.bg-glow-blue {
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0) 70%);
+}
+
+.bg-glow-purple {
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.15) 0%, rgba(168, 85, 247, 0) 70%);
+}
+
+.bg-glow-emerald {
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0) 70%);
+}
+
+/* Keyframes for scanning line animation */
+@keyframes scanline {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+.scanline-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.scanline-effect::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(59, 130, 246, 0.05) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  animation: scanline 6s linear infinite;
+  pointer-events: none;
+}
+
+/* Custom text glowing effect */
+.glow-text-blue {
+  text-shadow: 0 0 10px rgba(59, 130, 246, 0.4), 0 0 20px rgba(59, 130, 246, 0.2);
+}
+
+.glow-text-purple {
+  text-shadow: 0 0 10px rgba(168, 85, 247, 0.4), 0 0 20px rgba(168, 85, 247, 0.2);
+}
+
+/* Animated node dasharray for SVG connectors */
+@keyframes dash {
+  to {
+    stroke-dashoffset: -40;
+  }
+}
+
+.animated-connector {
+  stroke-dasharray: 8, 4;
+  animation: dash 2s linear infinite;
+}

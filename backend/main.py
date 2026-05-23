@@ -2,7 +2,7 @@ from fastapi import FastAPI, UploadFile, File
 from pydantic import BaseModel
 
 import shutil
-
+from fastapi.middleware.cors import CORSMiddleware
 from services.database import engine, SessionLocal
 
 from models.startup_models import Base, StartupWorkspace
@@ -23,6 +23,15 @@ from services.startup_extractor import (
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
+
+#Add Middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 # =========================

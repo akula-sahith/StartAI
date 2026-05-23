@@ -29,3 +29,21 @@ def create_workspace(
     db.refresh(workspace)
 
     return workspace
+
+def update_workspace_state(
+    db,
+    workspace_id,
+    updated_state
+):
+
+    workspace = db.query(StartupWorkspace).filter(
+        StartupWorkspace.id == workspace_id
+    ).first()
+
+    workspace.startup_state = updated_state
+
+    db.commit()
+
+    db.refresh(workspace)
+
+    return workspace

@@ -7,13 +7,15 @@ def create_workspace(
     db: Session,
     startup_name: str,
     mode: str,
-    domain: str
+    domain: str,
+    startup_description: str
 ):
 
     workspace = StartupWorkspace(
         startup_name=startup_name,
         mode=mode,
         domain=domain,
+        startup_description=startup_description,
         startup_state={
             "architecture": {},
             "finance": {},

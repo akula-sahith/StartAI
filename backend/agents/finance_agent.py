@@ -14,6 +14,9 @@ def finance_agent(state: StartupState):
         Startup:
         {state['startup_name']}
 
+        Startup Description:
+        {state['startup_description']}
+
         Architecture:
         {state['architecture']}
 

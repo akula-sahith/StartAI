@@ -20,6 +20,9 @@ def marketing_agent(state: StartupState):
         Architecture:
         {state['architecture']}
 
+        Startup Description:
+        {state['startup_description']}
+
         Hiring Plan:
         {state['hiring']}
 

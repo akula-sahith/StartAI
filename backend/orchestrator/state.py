@@ -5,6 +5,8 @@ class StartupState(TypedDict):
 
     startup_name: str
 
+    startup_description: str
+
     mode: str
 
     domain: str

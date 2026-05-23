@@ -22,6 +22,7 @@ class WorkspaceRequest(BaseModel):
     startup_name: str
     mode: str
     domain: str
+    startup_description: str
 
 
 @app.get("/")
@@ -42,7 +43,8 @@ def create_startup_workspace(data: WorkspaceRequest):
         db=db,
         startup_name=data.startup_name,
         mode=data.mode,
-        domain=data.domain
+        domain=data.domain,
+        startup_description=data.startup_description
     )
 
     # Build LangGraph workflow
@@ -56,6 +58,8 @@ def create_startup_workspace(data: WorkspaceRequest):
         "mode": workspace.mode,
 
         "domain": workspace.domain,
+
+        "startup_description": workspace.startup_description,
 
         "architecture": {},
 

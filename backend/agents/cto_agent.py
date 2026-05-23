@@ -14,6 +14,9 @@ def cto_agent(state: StartupState):
         A founder wants to build:
         {state['startup_name']}
 
+        Startup Description:
+        {state['startup_description']}
+
         Domain:
         {state['domain']}
 

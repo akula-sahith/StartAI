@@ -20,6 +20,9 @@ def hiring_agent(state: StartupState):
         Finance:
         {state['finance']}
 
+        Startup Description:
+        {state['startup_description']}
+
         Suggest:
 
         1. Initial hiring roadmap

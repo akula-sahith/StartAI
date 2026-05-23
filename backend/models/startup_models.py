@@ -15,4 +15,6 @@ class StartupWorkspace(Base):
 
     domain = Column(String)
 
+    startup_description = Column(String)
+
     startup_state = Column(JSON)

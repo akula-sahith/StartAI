@@ -40,16 +40,37 @@ def marketing_agent(state: StartupState):
         prompt = f"""
         You are a startup growth optimization strategist.
 
-        Analyze the startup and suggest:
+        Analyze the COMPLETE startup organizational state.
 
-        1. Marketing improvements
-        2. Growth bottlenecks
-        3. User acquisition optimization
+        Startup:
+        {state['startup_name']}
+
+        Description:
+        {state['startup_description']}
+
+        Architecture State:
+        {state['architecture']}
+
+        Finance State:
+        {state['finance']}
+
+        Hiring State:
+        {state['hiring']}
+
+        Marketing State:
+        {state['marketing']}
+
+        Your responsibility is growth and market optimization.
+
+        Identify:
+
+        1. Marketing inefficiencies
+        2. Customer acquisition problems
+        3. Growth bottlenecks
         4. Brand positioning improvements
         5. Revenue growth opportunities
 
-        Current Marketing State:
-        {state['marketing']}
+        Return strategic marketing recommendations.
         """
 
     response = llm.invoke(prompt)

@@ -37,16 +37,37 @@ def hiring_agent(state: StartupState):
         prompt = f"""
         You are a startup organizational optimization strategist.
 
-        Analyze the startup and suggest:
+        Analyze the COMPLETE startup organizational state.
+
+        Startup:
+        {state['startup_name']}
+
+        Description:
+        {state['startup_description']}
+
+        Architecture State:
+        {state['architecture']}
+
+        Finance State:
+        {state['finance']}
+
+        Hiring State:
+        {state['hiring']}
+
+        Marketing State:
+        {state['marketing']}
+
+        Your responsibility is organizational and hiring optimization.
+
+        Identify:
 
         1. Missing talent areas
-        2. Team scaling recommendations
-        3. Organizational bottlenecks
-        4. Hiring optimization opportunities
-        5. Leadership structure improvements
+        2. Organizational bottlenecks
+        3. Team scaling problems
+        4. Leadership gaps
+        5. Hiring optimization opportunities
 
-        Current Hiring State:
-        {state['hiring']}
+        Return strategic hiring recommendations.
         """
 
     response = llm.invoke(prompt)

@@ -32,10 +32,37 @@ def cto_agent(state: StartupState):
         prompt = f"""
         You are a CTO optimization agent.
 
-        Analyze startup architecture and suggest improvements.
+        Analyze the COMPLETE startup organizational state.
 
-        Current architecture:
+        Startup:
+        {state['startup_name']}
+
+        Description:
+        {state['startup_description']}
+
+        Current Architecture:
         {state['architecture']}
+
+        Finance State:
+        {state['finance']}
+
+        Hiring State:
+        {state['hiring']}
+
+        Marketing State:
+        {state['marketing']}
+
+        Your responsibility is technical optimization.
+
+        Identify:
+
+        1. Technical bottlenecks
+        2. Scaling issues
+        3. Infrastructure inefficiencies
+        4. Architecture improvements
+        5. Technical risks
+
+        Return strategic recommendations.
         """
 
     response = llm.invoke(prompt)

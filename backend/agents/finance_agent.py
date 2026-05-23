@@ -30,12 +30,39 @@ def finance_agent(state: StartupState):
     else:
 
         prompt = f"""
-        You are a startup optimization finance agent.
+        You are a startup finance optimization agent.
 
-        Analyze startup financial state and suggest optimizations.
+        Analyze the COMPLETE startup organizational state.
 
-        Finance state:
+        Startup:
+        {state['startup_name']}
+
+        Description:
+        {state['startup_description']}
+
+        Architecture State:
+        {state['architecture']}
+
+        Finance State:
         {state['finance']}
+
+        Hiring State:
+        {state['hiring']}
+
+        Marketing State:
+        {state['marketing']}
+
+        Your responsibility is financial optimization.
+
+        Identify:
+
+        1. Burn rate issues
+        2. Infrastructure cost inefficiencies
+        3. Hiring cost concerns
+        4. Budget optimization opportunities
+        5. Financial scaling risks
+
+        Return strategic financial recommendations.
         """
 
     response = llm.invoke(prompt)

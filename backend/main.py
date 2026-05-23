@@ -57,7 +57,7 @@ class WorkspaceRequest(BaseModel):
 def home():
 
     return {
-        "message": "Startup OS Backend Running"
+        "message": "Start AI Backend Running"
     }
 
 

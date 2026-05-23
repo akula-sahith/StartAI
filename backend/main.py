@@ -172,13 +172,86 @@ async def upload_startup_pdf(
     extracted_text = extract_text_from_pdf(
         file_path
     )
-
     # AI extraction pipeline
     startup_data = extract_startup_information(
         extracted_text
     )
 
+    db = SessionLocal()
+
+    # Create optimization workspace
+    workspace = create_workspace(
+        db=db,
+        startup_name=startup_data["startup_name"],
+        mode="optimization",
+        domain=startup_data["domain"],
+        startup_description=startup_data[
+            "startup_description"
+        ]
+    )
+
+    # Build workflow
+    workflow = build_workflow()
+
+    # Organizational shared state
+    initial_state = {
+
+        "startup_name":
+        startup_data["startup_name"],
+
+        "startup_description":
+        startup_data["startup_description"],
+
+        "mode": "optimization",
+
+        "domain":
+        startup_data["domain"],
+
+        "architecture": {
+
+            "current_architecture":
+            startup_data["current_architecture"],
+
+            "current_problems":
+            startup_data["current_problems"]
+        },
+
+        "finance": {
+
+            "monthly_cloud_cost":
+            startup_data["monthly_cloud_cost"],
+
+            "monthly_burn":
+            startup_data["monthly_burn"]
+        },
+
+        "hiring": {
+
+            "team_size":
+            startup_data["team_size"]
+        },
+
+        "marketing": {},
+
+        "completed_agents": []
+    }
+
+    # Execute orchestrated analysis
+    final_state = workflow.invoke(initial_state)
+
+    # Persist organizational memory
+    update_workspace_state(
+        db=db,
+        workspace_id=workspace.id,
+        updated_state=final_state
+    )
+
     return {
 
-        "extracted_startup_data": startup_data
+        "workspace_id": workspace.id,
+
+        "extracted_data": startup_data,
+
+        "organizational_analysis":
+        final_state
     }

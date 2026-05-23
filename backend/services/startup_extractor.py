@@ -27,6 +27,30 @@ def extract_startup_information(document_text: str):
 
     response = llm.invoke(prompt)
 
-    cleaned = response.content.strip()
+    # Handle different response formats
+    content = response.content
+
+    # If content is list
+    if isinstance(content, list):
+
+        combined_text = ""
+
+        for item in content:
+
+            if isinstance(item, dict):
+
+                combined_text += item.get("text", "")
+
+            else:
+
+                combined_text += str(item)
+
+        content = combined_text
+
+    cleaned = content.strip()
+
+    # Remove markdown formatting if present
+    cleaned = cleaned.replace("```json", "")
+    cleaned = cleaned.replace("```", "")
 
     return json.loads(cleaned)

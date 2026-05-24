@@ -15,12 +15,10 @@ const Dashboard = () => {
   const [workspace, setWorkspace] = useState(null);
 
   useEffect(() => {
-    // Read workspace data stored by forms/upload zones
     const data = localStorage.getItem('active_workspace_data');
     if (data) {
       try {
         const parsed = JSON.parse(data);
-        // Make sure to parse inner state as well
         setWorkspace(parsed);
       } catch (err) {
         console.error('Failed to parse workspace state:', err);
@@ -33,44 +31,40 @@ const Dashboard = () => {
     setWorkspace(null);
   };
 
-  // Render Empty State when no workspace is active
+  // Empty State
   if (!workspace) {
     return (
       <div className="relative min-h-[85vh] py-12 px-6 flex items-center justify-center overflow-hidden">
-        {/* Background glow auroras */}
-        <div className="absolute top-1/3 left-1/4 w-[500px] h-[500px] bg-glow-blue opacity-25 pointer-events-none"></div>
-        <div className="absolute bottom-1/3 right-1/4 w-[500px] h-[500px] bg-glow-purple opacity-25 pointer-events-none"></div>
-
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
+          initial={{ opacity: 0, scale: 0.97 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="w-full max-w-xl glass-panel-glow border border-slate-800 rounded-2xl p-8 md:p-10 text-center space-y-6"
+          className="w-full max-w-xl surface-elevated rounded-xl p-8 md:p-10 text-center space-y-6"
         >
-          <div className="mx-auto w-16 h-16 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-500">
+          <div className="mx-auto w-16 h-16 rounded-full bg-slate-800/50 border border-slate-700/40 flex items-center justify-center text-slate-500">
             <LayoutDashboard className="w-8 h-8" />
           </div>
 
           <div className="space-y-2">
-            <h2 className="text-2xl font-bold text-white tracking-tight">No Active Intelligence Workspace</h2>
+            <h2 className="text-2xl font-bold text-white tracking-tight">No Active Workspace</h2>
             <p className="text-slate-400 text-sm max-w-md mx-auto leading-relaxed">
-              Before accessing the cockpit, you need to initiate startup creation or upload your operational documents.
+              Create a new startup workspace or upload documents to begin analysis.
             </p>
           </div>
 
           <div className="grid sm:grid-cols-2 gap-4 pt-4">
             <Link
               to="/create-startup"
-              className="py-3 px-4 rounded-xl bg-blue-500 hover:bg-blue-400 text-white text-sm font-semibold transition duration-300 flex items-center justify-center gap-1.5"
+              className="py-3 px-4 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold transition duration-300 flex items-center justify-center gap-1.5"
             >
               <span>Create Startup</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
             <Link
               to="/optimize-startup"
-              className="py-3 px-4 rounded-xl bg-slate-900 border border-slate-800 text-slate-350 hover:text-white hover:bg-slate-850 text-sm font-semibold transition duration-300 flex items-center justify-center gap-1.5"
+              className="py-3 px-4 rounded-lg bg-slate-800/60 border border-slate-700/50 text-slate-300 hover:text-white hover:bg-slate-800 text-sm font-semibold transition duration-300 flex items-center justify-center gap-1.5"
             >
               <span>Optimize Startup</span>
-              <ArrowRight className="w-4 h-4 text-purple-400" />
+              <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </motion.div>
@@ -84,9 +78,6 @@ const Dashboard = () => {
   const mode = workspace.mode || 'creation';
   const description = workspace.startup_description || '';
   
-  // Extract agent feedback from state response
-  // Depending on `/workspace` or `/upload-startup-pdf` API results,
-  // final_state or startup_state holds the LangGraph state.
   const stateObj = workspace.final_state || workspace.startup_state || {};
   
   const ctoFeedback = stateObj.architecture?.cto_recommendation || 
@@ -102,19 +93,18 @@ const Dashboard = () => {
   const marketingFeedback = stateObj.marketing?.marketing_recommendation || 
                             'Marketing Agent GTM assessment incomplete.';
 
-  // Metrics mapping
-  // Let's retrieve exact stats if optimization mode, otherwise mock highly reasonable parameters for creation.
+  // Metrics
   const isCreation = mode === 'creation';
   const teamSizeVal = isCreation ? '5 Core Hires' : (stateObj.hiring?.team_size || '14 Personnel');
   const monthlyBurnVal = isCreation ? '$12,500 / mo' : (stateObj.finance?.monthly_burn ? `$${Number(stateObj.finance.monthly_burn).toLocaleString()} / mo` : '$34,000 / mo');
   const cloudCostVal = isCreation ? '$450 / mo' : (stateObj.finance?.monthly_cloud_cost ? `$${Number(stateObj.finance.monthly_cloud_cost).toLocaleString()} / mo` : '$6,800 / mo');
-  const riskVal = isCreation ? 'Low' : 'Moderate Bottlenecks';
-  const optScoreVal = isCreation ? '98% Excellent' : '78% Remediation';
+  const riskVal = isCreation ? 'Low' : 'Moderate';
+  const optScoreVal = isCreation ? '98%' : '78%';
   
   const riskPercentage = isCreation ? 12 : 64;
   const optPercentage = isCreation ? 98 : 78;
 
-  // Operational Charts Data (Cost optimization & radar metrics)
+  // Chart Data
   const costProjectionData = isCreation ? [
     { name: 'M1', spending: 450, optimized: 400 },
     { name: 'M2', spending: 600, optimized: 520 },
@@ -132,45 +122,41 @@ const Dashboard = () => {
   ];
 
   const organizationalRadarData = [
-    { subject: 'Infrastructure Cost', A: isCreation ? 95 : 45, fullMark: 100 },
-    { subject: 'Engineering Velocity', A: isCreation ? 98 : 70, fullMark: 100 },
-    { subject: 'Runway Margin', A: isCreation ? 90 : 55, fullMark: 100 },
-    { subject: 'Marketing Reach', A: isCreation ? 85 : 65, fullMark: 100 },
+    { subject: 'Infrastructure', A: isCreation ? 95 : 45, fullMark: 100 },
+    { subject: 'Eng. Velocity', A: isCreation ? 98 : 70, fullMark: 100 },
+    { subject: 'Runway', A: isCreation ? 90 : 55, fullMark: 100 },
+    { subject: 'Marketing', A: isCreation ? 85 : 65, fullMark: 100 },
     { subject: 'Product Fit', A: isCreation ? 96 : 80, fullMark: 100 },
-    { subject: 'Talent Capacity', A: isCreation ? 92 : 60, fullMark: 100 }
+    { subject: 'Talent', A: isCreation ? 92 : 60, fullMark: 100 }
   ];
 
   return (
     <div className="relative min-h-[90vh] py-8 px-6 space-y-8 overflow-hidden">
-      {/* Background neon glows */}
-      <div className="absolute top-[20%] right-[10%] w-[600px] h-[600px] bg-glow-blue opacity-20 pointer-events-none"></div>
-      <div className="absolute bottom-[20%] left-[10%] w-[600px] h-[600px] bg-glow-purple opacity-20 pointer-events-none"></div>
-
-      {/* Main Cockpit Header */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-900 pb-6 relative z-10">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-800/60 pb-6 relative z-10">
         <div>
-          <span className="text-[10px] font-mono tracking-widest text-slate-500 block uppercase">STARTUP OPERATIONS</span>
-          <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-white mt-1">Intelligence Cockpit</h1>
+          <span className="text-[11px] font-medium tracking-wide text-slate-500 block uppercase">Operations</span>
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-white mt-1">Dashboard</h1>
         </div>
 
         <div className="flex items-center gap-3">
           <button
             onClick={() => window.location.reload()}
-            className="p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-450 hover:text-white transition duration-300"
-            title="Refresh Operational Node"
+            className="p-2.5 rounded-lg bg-slate-800/50 border border-slate-700/40 text-slate-400 hover:text-white transition duration-300"
+            title="Refresh"
           >
             <RefreshCw className="w-4 h-4" />
           </button>
           <button
             onClick={handleResetWorkspace}
-            className="px-4 py-2.5 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-mono font-bold hover:bg-red-500 hover:text-white transition-all duration-300"
+            className="px-4 py-2.5 rounded-lg bg-red-500/8 border border-red-500/15 text-red-400 text-xs font-semibold hover:bg-red-500 hover:text-white transition-all duration-300"
           >
-            DISCONNECT CORE
+            Reset Workspace
           </button>
         </div>
       </div>
 
-      {/* Hero Banner Component */}
+      {/* Hero Banner */}
       <DashboardHero
         name={name}
         domain={domain}
@@ -178,57 +164,57 @@ const Dashboard = () => {
         description={description}
       />
 
-      {/* Workflow Orchestrator Visualization */}
+      {/* Pipeline Visualization */}
       <WorkflowDiagram activeAgent="marketing_agent" />
 
-      {/* Telemetry Metrics Grid */}
+      {/* Metrics Grid */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4 relative z-10">
         <MetricsCard
-          title="Team Footprint"
+          title="Team Size"
           value={teamSizeVal}
-          subtitle="Direct Engineering Allocations"
+          subtitle="Engineering allocations"
           icon={Users}
           colorTheme="purple"
         />
         <MetricsCard
-          title="Monthly Burn Rate"
+          title="Monthly Burn"
           value={monthlyBurnVal}
-          subtitle="Fixed Operational Expenses"
+          subtitle="Operational expenses"
           icon={DollarSign}
           colorTheme="pink"
         />
         <MetricsCard
-          title="Monthly Cloud Cost"
+          title="Cloud Cost"
           value={cloudCostVal}
-          subtitle="AWS/GCP/Postgres Infrastructure"
+          subtitle="Infrastructure spend"
           icon={Cpu}
           colorTheme="blue"
         />
         <MetricsCard
-          title="System Security Risk"
+          title="Risk Level"
           value={riskVal}
-          subtitle="Vulnerability & Scaling Index"
+          subtitle="Vulnerability index"
           icon={ShieldAlert}
           colorTheme="amber"
           percentage={riskPercentage}
         />
         <MetricsCard
-          title="Optimization Rating"
+          title="Optimization"
           value={optScoreVal}
-          subtitle="Efficiency Aggregate Index"
+          subtitle="Efficiency score"
           icon={TrendingUp}
           colorTheme="emerald"
           percentage={optPercentage}
         />
       </div>
 
-      {/* Operational Charts and Analytics Panels */}
+      {/* Charts */}
       <div className="grid lg:grid-cols-3 gap-6 relative z-10">
-        {/* Cost Optimization Projection */}
-        <div className="lg:col-span-2 glass-panel border border-slate-800/80 rounded-2xl p-6 flex flex-col justify-between h-[360px]">
+        {/* Cost Projection */}
+        <div className="lg:col-span-2 surface-card rounded-xl p-6 flex flex-col justify-between h-[360px]">
           <div>
-            <span className="text-[10px] font-mono tracking-widest text-slate-500 block uppercase">BUDGET MODELING</span>
-            <h3 className="text-lg font-bold text-white tracking-tight">Cloud Budget Optimization (6-Month Forecast)</h3>
+            <span className="text-[11px] font-medium tracking-wide text-slate-500 block uppercase">Budget Forecast</span>
+            <h3 className="text-lg font-semibold text-white tracking-tight">Cloud Cost Optimization (6-Month)</h3>
           </div>
 
           <div className="w-full h-56 mt-4">
@@ -236,72 +222,72 @@ const Dashboard = () => {
               <AreaChart data={costProjectionData}>
                 <defs>
                   <linearGradient id="colorSpend" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#f43f5e" stopOpacity={0.25} />
-                    <stop offset="95%" stopColor="#f43f5e" stopOpacity={0} />
+                    <stop offset="5%" stopColor="#ef4444" stopOpacity={0.15} />
+                    <stop offset="95%" stopColor="#ef4444" stopOpacity={0} />
                   </linearGradient>
                   <linearGradient id="colorOpt" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#10b981" stopOpacity={0.25} />
-                    <stop offset="95%" stopColor="#10b981" stopOpacity={0} />
+                    <stop offset="5%" stopColor="#22c55e" stopOpacity={0.15} />
+                    <stop offset="95%" stopColor="#22c55e" stopOpacity={0} />
                   </linearGradient>
                 </defs>
                 <XAxis dataKey="name" stroke="#475569" fontSize={11} tickLine={false} />
                 <YAxis stroke="#475569" fontSize={11} tickLine={false} />
-                <Tooltip contentStyle={{ backgroundColor: '#020617', border: '1px solid #1e293b', borderRadius: '8px' }} />
-                <Area type="monotone" dataKey="spending" name="Current Burn" stroke="#f43f5e" strokeWidth={2} fillOpacity={1} fill="url(#colorSpend)" />
-                <Area type="monotone" dataKey="optimized" name="Target Optimization" stroke="#10b981" strokeWidth={2} fillOpacity={1} fill="url(#colorOpt)" />
+                <Tooltip contentStyle={{ backgroundColor: '#111827', border: '1px solid #1e293b', borderRadius: '8px', fontSize: '12px' }} />
+                <Area type="monotone" dataKey="spending" name="Current Spend" stroke="#ef4444" strokeWidth={1.5} fillOpacity={1} fill="url(#colorSpend)" />
+                <Area type="monotone" dataKey="optimized" name="Optimized" stroke="#22c55e" strokeWidth={1.5} fillOpacity={1} fill="url(#colorOpt)" />
               </AreaChart>
             </ResponsiveContainer>
           </div>
         </div>
 
-        {/* Structural Radar Chart */}
-        <div className="glass-panel border border-slate-800/80 rounded-2xl p-6 flex flex-col justify-between h-[360px]">
+        {/* Radar Chart */}
+        <div className="surface-card rounded-xl p-6 flex flex-col justify-between h-[360px]">
           <div>
-            <span className="text-[10px] font-mono tracking-widest text-slate-500 block uppercase">CAPABILITY EVALUATION</span>
-            <h3 className="text-lg font-bold text-white tracking-tight">Organizational Balance Radar</h3>
+            <span className="text-[11px] font-medium tracking-wide text-slate-500 block uppercase">Performance Radar</span>
+            <h3 className="text-lg font-semibold text-white tracking-tight">Organizational Balance</h3>
           </div>
 
           <div className="w-full h-56 mt-4 flex items-center justify-center">
             <ResponsiveContainer width="100%" height="100%">
               <RadarChart cx="50%" cy="50%" radius="70%" data={organizationalRadarData}>
                 <PolarGrid stroke="#1e293b" />
-                <PolarAngleAxis dataKey="subject" stroke="#94a3b8" fontSize={9} />
-                <PolarRadiusAxis angle={30} domain={[0, 100]} stroke="#475569" fontSize={9} />
-                <Radar name="Organization" dataKey="A" stroke="#a855f7" fill="#a855f7" fillOpacity={0.15} />
+                <PolarAngleAxis dataKey="subject" stroke="#64748b" fontSize={9} />
+                <PolarRadiusAxis angle={30} domain={[0, 100]} stroke="#334155" fontSize={9} />
+                <Radar name="Organization" dataKey="A" stroke="#6366f1" fill="#6366f1" fillOpacity={0.12} />
               </RadarChart>
             </ResponsiveContainer>
           </div>
         </div>
       </div>
 
-      {/* Deep Agent Analysis Columns */}
+      {/* Agent Analysis */}
       <div className="space-y-6 relative z-10">
-        <div className="border-b border-slate-900 pb-3">
-          <span className="text-[10px] font-mono tracking-widest text-slate-500 block uppercase font-bold">COGNITIVE RECOMMENDATIONS</span>
-          <h3 className="text-xl font-bold text-white tracking-tight mt-0.5">Specialized Agent Evaluations</h3>
+        <div className="border-b border-slate-800/60 pb-3">
+          <span className="text-[11px] font-medium tracking-wide text-slate-500 block uppercase">Recommendations</span>
+          <h3 className="text-lg font-bold text-white tracking-tight mt-0.5">Agent Analysis</h3>
         </div>
 
         <div className="space-y-4">
           <AgentCard
-            title="Chief Technical Officer Node"
+            title="Technical Architecture"
             agentName="CTO Agent"
             colorTheme="blue"
             contentData={ctoFeedback}
           />
           <AgentCard
-            title="SVP Corporate Finance Node"
+            title="Financial Planning"
             agentName="Finance Agent"
             colorTheme="emerald"
             contentData={financeFeedback}
           />
           <AgentCard
-            title="Head of Talent & Hiring Strategy Node"
+            title="Talent & Hiring Strategy"
             agentName="Hiring Agent"
             colorTheme="purple"
             contentData={hiringFeedback}
           />
           <AgentCard
-            title="VP Growth & Product Marketing Node"
+            title="Growth & Marketing"
             agentName="Marketing Agent"
             colorTheme="pink"
             contentData={marketingFeedback}

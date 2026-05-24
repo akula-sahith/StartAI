@@ -23,13 +23,13 @@ const UploadZone = ({ onFileSelected, isUploading }) => {
     
     // Check if it is a PDF
     if (file.type !== 'application/pdf' && !file.name.endsWith('.pdf')) {
-      setError('System restricted upload: Only pitch deck/documents in PDF format are supported.');
+      setError('Only PDF documents are supported.');
       return false;
     }
     
     // Max 15MB file size
     if (file.size > 15 * 1024 * 1024) {
-      setError('File size too massive. Max file allocation is 15MB.');
+      setError('File size exceeds the 15MB limit.');
       return false;
     }
 
@@ -93,10 +93,10 @@ const UploadZone = ({ onFileSelected, isUploading }) => {
         onDragLeave={handleDrag}
         onDrop={handleDrop}
         onClick={triggerInputClick}
-        className={`relative w-full h-64 border-2 border-dashed rounded-2xl flex flex-col items-center justify-center p-6 cursor-pointer overflow-hidden transition-all duration-300 ${
+        className={`relative w-full h-64 border-2 border-dashed rounded-xl flex flex-col items-center justify-center p-6 cursor-pointer overflow-hidden transition-all duration-300 ${
           dragActive
-            ? 'border-purple-500 bg-purple-500/10 shadow-lg shadow-purple-500/5'
-            : 'border-slate-800 bg-slate-950/40 hover:border-slate-700/60 hover:bg-slate-900/10'
+            ? 'border-indigo-500 bg-indigo-500/5'
+            : 'border-slate-700 bg-slate-800/20 hover:border-slate-600 hover:bg-slate-800/30'
         }`}
       >
         <input
@@ -107,9 +107,6 @@ const UploadZone = ({ onFileSelected, isUploading }) => {
           onChange={handleChange}
         />
 
-        {/* Ambient neon decoration */}
-        <div className="absolute -bottom-16 -right-16 w-32 h-32 rounded-full bg-purple-500 opacity-5 blur-3xl pointer-events-none"></div>
-
         <AnimatePresence mode="wait">
           {!selectedFile ? (
             <motion.div
@@ -119,12 +116,12 @@ const UploadZone = ({ onFileSelected, isUploading }) => {
               exit={{ opacity: 0, y: -10 }}
               className="flex flex-col items-center text-center space-y-4"
             >
-              <div className="p-4 rounded-full bg-slate-900 border border-slate-800 text-purple-400 group-hover:scale-110 transition-transform">
-                <UploadCloud className="w-8 h-8 animate-pulse" />
+              <div className="p-4 rounded-xl bg-slate-800/50 border border-slate-700/40 text-indigo-400">
+                <UploadCloud className="w-8 h-8" />
               </div>
               <div>
-                <p className="text-sm font-semibold text-white">Drag & drop your Pitch Deck here</p>
-                <p className="text-xs text-slate-500 mt-1">or click to explore files (Max: 15MB PDF)</p>
+                <p className="text-sm font-medium text-white">Drag & drop your document here</p>
+                <p className="text-xs text-slate-500 mt-1">or click to browse files (Max: 15MB PDF)</p>
               </div>
             </motion.div>
           ) : (
@@ -133,21 +130,21 @@ const UploadZone = ({ onFileSelected, isUploading }) => {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              className="w-full max-w-sm flex items-center gap-4 bg-slate-900/90 border border-slate-800/80 p-4 rounded-xl relative"
-              onClick={(e) => e.stopPropagation()} // Prevent clicking parent uploader
+              className="w-full max-w-sm flex items-center gap-4 bg-slate-800/40 border border-slate-700/40 p-4 rounded-lg relative"
+              onClick={(e) => e.stopPropagation()}
             >
-              <div className="p-3 rounded-lg bg-purple-950/50 border border-purple-500/20 text-purple-400">
+              <div className="p-3 rounded-lg bg-indigo-500/8 border border-indigo-500/15 text-indigo-400">
                 <FileText className="w-6 h-6" />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-semibold text-white truncate">{selectedFile.name}</p>
-                <p className="text-xs font-mono text-slate-500 mt-0.5">{formatBytes(selectedFile.size)}</p>
+                <p className="text-sm font-medium text-white truncate">{selectedFile.name}</p>
+                <p className="text-xs text-slate-500 mt-0.5">{formatBytes(selectedFile.size)}</p>
               </div>
               <button
                 type="button"
                 onClick={removeFile}
-                className="p-1.5 rounded-lg bg-slate-950 border border-slate-850 text-slate-400 hover:text-red-400 hover:border-red-500/20 hover:bg-red-500/10 transition-colors"
-                title="Remove doc"
+                className="p-1.5 rounded-lg bg-slate-800/50 border border-slate-700/40 text-slate-400 hover:text-red-400 hover:border-red-500/20 hover:bg-red-500/5 transition-colors"
+                title="Remove file"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -162,7 +159,7 @@ const UploadZone = ({ onFileSelected, isUploading }) => {
             initial={{ opacity: 0, y: 5 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 5 }}
-            className="mt-4 p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-semibold flex items-center gap-2"
+            className="mt-4 p-3 rounded-lg bg-amber-500/8 border border-amber-500/15 text-amber-400 text-xs font-medium flex items-center gap-2"
           >
             <AlertTriangle className="w-4 h-4 shrink-0" />
             <span>{error}</span>
@@ -171,16 +168,16 @@ const UploadZone = ({ onFileSelected, isUploading }) => {
       </AnimatePresence>
 
       {selectedFile && isUploading && (
-        <div className="mt-4 p-4 bg-slate-950 border border-slate-850 rounded-xl space-y-3 font-mono text-xs">
+        <div className="mt-4 p-4 bg-slate-800/30 border border-slate-700/40 rounded-lg space-y-3 text-xs">
           <div className="flex justify-between items-center text-slate-400">
-            <span className="flex items-center gap-1.5 font-semibold text-purple-400">
+            <span className="flex items-center gap-1.5 font-medium text-indigo-400">
               <Cpu className="w-3.5 h-3.5 animate-spin" />
-              INJECTING PDF STREAM
+              Uploading document...
             </span>
-            <span>UPLOADING...</span>
+            <span>Processing</span>
           </div>
-          <div className="w-full h-1 bg-slate-900 rounded-full overflow-hidden">
-            <div className="h-full bg-gradient-to-r from-purple-500 to-indigo-500 animate-pulse w-full"></div>
+          <div className="w-full h-1 bg-slate-800 rounded-full overflow-hidden">
+            <div className="h-full bg-indigo-500 animate-pulse w-full"></div>
           </div>
         </div>
       )}

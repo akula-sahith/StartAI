@@ -10,11 +10,9 @@ import './App.css';
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-[#020617] text-slate-50 flex flex-col font-sans selection:bg-blue-500/30 selection:text-white antialiased">
-        {/* Sleek Enterprise Top Bar */}
+      <div className="min-h-screen bg-[#0a0f1a] text-slate-100 flex flex-col font-sans selection:bg-indigo-500/30 selection:text-white antialiased">
         <Navbar />
 
-        {/* Primary Page Cockpit */}
         <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 relative">
           <Routes>
             <Route path="/" element={<LandingPage />} />
@@ -25,9 +23,8 @@ function App() {
           </Routes>
         </main>
 
-        {/* Global telemetry footer */}
-        <footer className="w-full border-t border-slate-900 bg-slate-950/40 py-6 text-center text-[10px] font-mono text-slate-655 text-slate-600 tracking-wider">
-          © {new Date().getFullYear()} STARTUP OS COGNITIVE RUNTIME ENGINE // ALL SYSTEMS SECURE.
+        <footer className="w-full border-t border-slate-800/60 bg-[#0d1321] py-6 text-center text-xs text-slate-500 tracking-wide">
+          © {new Date().getFullYear()} StartAI — AI-Powered Operations Platform
         </footer>
       </div>
     </Router>

@@ -2,9 +2,7 @@
 
 > An AI-powered multi-agent platform that helps founders create and optimize startups using coordinated agent workflows, LangGraph orchestration, and persistent organizational memory.
 
-![Version](https://img.shields.io/badge/version-1.0-blue)
 ![Stack](https://img.shields.io/badge/stack-FastAPI%20%7C%20React%20%7C%20LangGraph-informational)
-![License](https://img.shields.io/badge/license-MIT-green)
 
 ---
 

@@ -197,8 +197,8 @@ docker compose up --build
 | Service | URL |
 |---|---|
 | Frontend | http://localhost:5173 |
-| Backend | http://localhost:8005 |
-| Swagger API Docs | http://localhost:8005/docs |
+| Backend | http://localhost:8007 |
+| Swagger API Docs | http://localhost:8007/docs |
 
 ---
 

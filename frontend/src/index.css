@@ -2,39 +2,42 @@
 
 @layer base {
   body {
-    background-color: #0a0f1a;
-    color: #f1f5f9;
+    background-color: #000000;
+    color: #e5e5e5;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     overflow-x: hidden;
   }
 
   /* Clean minimal scrollbars */
   ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    width: 5px;
+    height: 5px;
   }
   ::-webkit-scrollbar-track {
-    background: #0a0f1a;
+    background: #000000;
   }
   ::-webkit-scrollbar-thumb {
-    background: #1e293b;
+    background: #333333;
     border-radius: 9999px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #334155;
+    background: #555555;
   }
 }
 
-/* Enterprise surface styles — clean, no blur/glow */
+/* =============================================
+   SURFACE SYSTEM — Pure black & white
+   ============================================= */
+
 .surface-card {
-  background: #111827;
-  border: 1px solid #1e293b;
+  background: #0a0a0a;
+  border: 1px solid #1a1a1a;
 }
 
 .surface-elevated {
-  background: #141c2b;
-  border: 1px solid #1e293b;
-  box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.25);
+  background: #0d0d0d;
+  border: 1px solid #1a1a1a;
+  box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.5);
 }
 
 /* Animated dasharray for SVG workflow connectors */
@@ -47,4 +50,104 @@
 .animated-connector {
   stroke-dasharray: 8, 4;
   animation: dash 2s linear infinite;
+}
+
+/* =============================================
+   USER PROFILE DROPDOWN
+   ============================================= */
+
+.user-dropdown {
+  background: #0d0d0d;
+  border: 1px solid #222222;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 0 2px 8px rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  min-width: 240px;
+}
+
+.user-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  font-size: 13px;
+  color: #888888;
+  transition: all 150ms ease;
+  cursor: pointer;
+  border-radius: 6px;
+  margin: 0 6px;
+}
+
+.user-dropdown-item:hover {
+  background: #1a1a1a;
+  color: #ffffff;
+}
+
+.user-dropdown-divider {
+  height: 1px;
+  background: #1a1a1a;
+  margin: 6px 0;
+}
+
+/* =============================================
+   USER AVATAR
+   ============================================= */
+
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 13px;
+  color: #000000;
+  background: #ffffff;
+  cursor: pointer;
+  transition: all 200ms ease;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.user-avatar:hover {
+  box-shadow: 0 0 0 2px #000000, 0 0 0 4px rgba(255, 255, 255, 0.2);
+}
+
+/* =============================================
+   WORKSPACE LIST CARD
+   ============================================= */
+
+.workspace-list-card {
+  background: #0a0a0a;
+  border: 1px solid #1a1a1a;
+  border-radius: 12px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 200ms ease;
+}
+
+.workspace-list-card:hover {
+  border-color: #333333;
+  background: #0f0f0f;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* =============================================
+   FADE IN ANIMATION
+   ============================================= */
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-fade-in-down {
+  animation: fadeInDown 150ms ease-out;
 }

@@ -12,7 +12,7 @@ const LandingPage = () => {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-500/8 border border-indigo-500/15 text-xs font-medium tracking-wide text-indigo-400"
+          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-neutral-900 border border-neutral-800 text-xs font-medium tracking-wide text-neutral-300"
         >
           <Sparkles className="w-3.5 h-3.5" />
           <span className="uppercase text-[11px]">
@@ -28,9 +28,9 @@ const LandingPage = () => {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-4xl md:text-6xl font-bold tracking-tight text-white leading-[1.15]"
           >
-            Startup Intelligence{' '}
-            <span className="text-indigo-400">
-              OS
+            Your Startup Starts Here {' '}
+            <span className="text-neutral-400">
+
             </span>
           </motion.h1>
 
@@ -38,7 +38,7 @@ const LandingPage = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-slate-400 text-base md:text-lg leading-relaxed max-w-2xl mx-auto"
+            className="text-neutral-400 text-base md:text-lg leading-relaxed max-w-2xl mx-auto"
           >
             Multi-agent AI platform for startup creation, organizational optimization, and strategic intelligence.
           </motion.p>
@@ -57,7 +57,7 @@ const LandingPage = () => {
             buttonText="Launch Creator"
             route="/create-startup"
             icon={Cpu}
-            colorTheme="blue"
+            colorTheme="black"
           />
 
           <WorkflowCard
@@ -66,7 +66,7 @@ const LandingPage = () => {
             buttonText="Launch Optimizer"
             route="/optimize-startup"
             icon={UploadCloud}
-            colorTheme="purple"
+            colorTheme="black"
           />
         </motion.div>
 

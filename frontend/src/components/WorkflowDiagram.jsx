@@ -5,20 +5,20 @@ import { FileText, Cpu, DollarSign, Users, TrendingUp, ShieldAlert, CheckCircle 
 const WorkflowDiagram = ({ activeAgent = 'marketing_agent' }) => {
   // Define agent pipeline order
   const pipeline = [
-    { id: 'input', label: 'Input', icon: FileText, color: 'text-slate-400', border: 'border-slate-700 bg-slate-800/40' },
-    { id: 'cto_agent', label: 'Technical', icon: Cpu, color: 'text-indigo-400', border: 'border-indigo-500/25 bg-indigo-500/5' },
-    { id: 'finance_agent', label: 'Financial', icon: DollarSign, color: 'text-emerald-400', border: 'border-emerald-500/25 bg-emerald-500/5' },
-    { id: 'hiring_agent', label: 'Hiring', icon: Users, color: 'text-violet-400', border: 'border-violet-500/25 bg-violet-500/5' },
-    { id: 'marketing_agent', label: 'Growth', icon: TrendingUp, color: 'text-amber-400', border: 'border-amber-500/25 bg-amber-500/5' },
-    { id: 'output', label: 'Results', icon: CheckCircle, color: 'text-indigo-400', border: 'border-indigo-500/25 bg-indigo-500/5' }
+    { id: 'input', label: 'Input', icon: FileText, color: 'text-neutral-400', border: 'border-neutral-800 bg-neutral-900' },
+    { id: 'cto_agent', label: 'Technical', icon: Cpu, color: 'text-neutral-400', border: 'border-neutral-800 bg-neutral-900' },
+    { id: 'finance_agent', label: 'Financial', icon: DollarSign, color: 'text-neutral-400', border: 'border-neutral-800 bg-neutral-900' },
+    { id: 'hiring_agent', label: 'Hiring', icon: Users, color: 'text-neutral-400', border: 'border-neutral-800 bg-neutral-900' },
+    { id: 'marketing_agent', label: 'Growth', icon: TrendingUp, color: 'text-neutral-400', border: 'border-neutral-800 bg-neutral-900' },
+    { id: 'output', label: 'Results', icon: CheckCircle, color: 'text-white', border: 'border-neutral-600 bg-neutral-800' }
   ];
 
   return (
-    <div className="w-full surface-card rounded-xl p-6 md:p-8 overflow-hidden relative">
+    <div className="w-full surface-card rounded-xl p-6 md:p-8 overflow-hidden relative border border-neutral-800">
       <div className="relative z-10 space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <span className="text-[11px] font-medium tracking-wide text-slate-500 block uppercase">Agent Flow</span>
+            <span className="text-[11px] font-medium tracking-wide text-neutral-500 block uppercase">Agent Flow</span>
             <h3 className="text-lg font-bold text-white tracking-tight">Processing Pipeline</h3>
           </div>
 
@@ -27,7 +27,7 @@ const WorkflowDiagram = ({ activeAgent = 'marketing_agent' }) => {
         {/* Desktop Horizontal View */}
         <div className="hidden lg:flex items-center justify-between relative py-6">
           {/* Connection line */}
-          <div className="absolute left-[8%] right-[8%] top-1/2 -translate-y-1/2 h-[1px] bg-slate-700/60 pointer-events-none"></div>
+          <div className="absolute left-[8%] right-[8%] top-1/2 -translate-y-1/2 h-[1px] bg-neutral-800 pointer-events-none"></div>
 
           {pipeline.map((node, idx) => {
             const Icon = node.icon;
@@ -45,7 +45,7 @@ const WorkflowDiagram = ({ activeAgent = 'marketing_agent' }) => {
                   </div>
                   <div>
                     <p className="text-xs font-medium text-white tracking-tight">{node.label}</p>
-                    <p className="text-[10px] text-slate-500 mt-0.5">Step {idx + 1}</p>
+                    <p className="text-[10px] text-neutral-500 mt-0.5">Step {idx + 1}</p>
                   </div>
                 </motion.div>
 
@@ -59,7 +59,7 @@ const WorkflowDiagram = ({ activeAgent = 'marketing_agent' }) => {
                         x2="100%"
                         y2="8"
                         className="animated-connector"
-                        stroke="rgba(99, 102, 241, 0.25)"
+                        stroke="rgba(255, 255, 255, 0.15)"
                         strokeWidth="1"
                       />
                     </svg>
@@ -71,7 +71,7 @@ const WorkflowDiagram = ({ activeAgent = 'marketing_agent' }) => {
         </div>
 
         {/* Mobile Vertical View */}
-        <div className="flex lg:hidden flex-col gap-5 relative py-4 pl-6 border-l border-slate-700/50">
+        <div className="flex lg:hidden flex-col gap-5 relative py-4 pl-6 border-l border-neutral-800">
           {pipeline.map((node, idx) => {
             const Icon = node.icon;
             return (
@@ -82,14 +82,14 @@ const WorkflowDiagram = ({ activeAgent = 'marketing_agent' }) => {
                 transition={{ delay: idx * 0.08 }}
                 className="flex items-center gap-4 relative"
               >
-                <div className="absolute -left-[27px] w-[10px] h-[1px] bg-slate-700/50"></div>
+                <div className="absolute -left-[27px] w-[10px] h-[1px] bg-neutral-800"></div>
 
                 <div className={`w-10 h-10 rounded-full border flex items-center justify-center shrink-0 ${node.border}`}>
                   <Icon className={`w-4 h-4 ${node.color}`} />
                 </div>
                 <div>
                   <h4 className="text-sm font-medium text-white tracking-tight">{node.label}</h4>
-                  <p className="text-[11px] text-slate-500">Step {idx + 1}</p>
+                  <p className="text-[11px] text-neutral-500">Step {idx + 1}</p>
                 </div>
               </motion.div>
             );

@@ -95,8 +95,8 @@ const UploadZone = ({ onFileSelected, isUploading }) => {
         onClick={triggerInputClick}
         className={`relative w-full h-64 border-2 border-dashed rounded-xl flex flex-col items-center justify-center p-6 cursor-pointer overflow-hidden transition-all duration-300 ${
           dragActive
-            ? 'border-indigo-500 bg-indigo-500/5'
-            : 'border-slate-700 bg-slate-800/20 hover:border-slate-600 hover:bg-slate-800/30'
+            ? 'border-white bg-neutral-900'
+            : 'border-neutral-700 bg-neutral-950 hover:border-neutral-500 hover:bg-neutral-900'
         }`}
       >
         <input
@@ -116,12 +116,12 @@ const UploadZone = ({ onFileSelected, isUploading }) => {
               exit={{ opacity: 0, y: -10 }}
               className="flex flex-col items-center text-center space-y-4"
             >
-              <div className="p-4 rounded-xl bg-slate-800/50 border border-slate-700/40 text-indigo-400">
+              <div className="p-4 rounded-xl bg-neutral-900 border border-neutral-800 text-white">
                 <UploadCloud className="w-8 h-8" />
               </div>
               <div>
                 <p className="text-sm font-medium text-white">Drag & drop your document here</p>
-                <p className="text-xs text-slate-500 mt-1">or click to browse files (Max: 15MB PDF)</p>
+                <p className="text-xs text-neutral-500 mt-1">or click to browse files (Max: 15MB PDF)</p>
               </div>
             </motion.div>
           ) : (
@@ -130,20 +130,20 @@ const UploadZone = ({ onFileSelected, isUploading }) => {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              className="w-full max-w-sm flex items-center gap-4 bg-slate-800/40 border border-slate-700/40 p-4 rounded-lg relative"
+              className="w-full max-w-sm flex items-center gap-4 bg-neutral-900 border border-neutral-800 p-4 rounded-lg relative"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="p-3 rounded-lg bg-indigo-500/8 border border-indigo-500/15 text-indigo-400">
+              <div className="p-3 rounded-lg bg-neutral-800 border border-neutral-700 text-white">
                 <FileText className="w-6 h-6" />
               </div>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium text-white truncate">{selectedFile.name}</p>
-                <p className="text-xs text-slate-500 mt-0.5">{formatBytes(selectedFile.size)}</p>
+                <p className="text-xs text-neutral-500 mt-0.5">{formatBytes(selectedFile.size)}</p>
               </div>
               <button
                 type="button"
                 onClick={removeFile}
-                className="p-1.5 rounded-lg bg-slate-800/50 border border-slate-700/40 text-slate-400 hover:text-red-400 hover:border-red-500/20 hover:bg-red-500/5 transition-colors"
+                className="p-1.5 rounded-lg bg-neutral-800 border border-neutral-700 text-neutral-400 hover:text-white hover:border-neutral-500 transition-colors"
                 title="Remove file"
               >
                 <X className="w-4 h-4" />
@@ -159,7 +159,7 @@ const UploadZone = ({ onFileSelected, isUploading }) => {
             initial={{ opacity: 0, y: 5 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 5 }}
-            className="mt-4 p-3 rounded-lg bg-amber-500/8 border border-amber-500/15 text-amber-400 text-xs font-medium flex items-center gap-2"
+            className="mt-4 p-3 rounded-lg bg-neutral-900 border border-neutral-800 text-neutral-300 text-xs font-medium flex items-center gap-2"
           >
             <AlertTriangle className="w-4 h-4 shrink-0" />
             <span>{error}</span>
@@ -168,16 +168,16 @@ const UploadZone = ({ onFileSelected, isUploading }) => {
       </AnimatePresence>
 
       {selectedFile && isUploading && (
-        <div className="mt-4 p-4 bg-slate-800/30 border border-slate-700/40 rounded-lg space-y-3 text-xs">
-          <div className="flex justify-between items-center text-slate-400">
-            <span className="flex items-center gap-1.5 font-medium text-indigo-400">
+        <div className="mt-4 p-4 bg-neutral-900 border border-neutral-800 rounded-lg space-y-3 text-xs">
+          <div className="flex justify-between items-center text-neutral-400">
+            <span className="flex items-center gap-1.5 font-medium text-white">
               <Cpu className="w-3.5 h-3.5 animate-spin" />
               Uploading document...
             </span>
             <span>Processing</span>
           </div>
-          <div className="w-full h-1 bg-slate-800 rounded-full overflow-hidden">
-            <div className="h-full bg-indigo-500 animate-pulse w-full"></div>
+          <div className="w-full h-1 bg-neutral-800 rounded-full overflow-hidden">
+            <div className="h-full bg-white animate-pulse w-full"></div>
           </div>
         </div>
       )}

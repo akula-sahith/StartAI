@@ -87,7 +87,7 @@ const LoadingOverlay = ({ isVisible, mode = 'creation' }) => {
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#0a0f1a]/95 backdrop-blur-sm px-4">
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-sm px-4">
         {/* ──────────────────────────────────────────────
             OUTER CONTAINER — FIXED DIMENSIONS, NEVER RESIZES
             ────────────────────────────────────────────── */}
@@ -96,7 +96,7 @@ const LoadingOverlay = ({ isVisible, mode = 'creation' }) => {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 8 }}
           transition={{ duration: 0.3 }}
-          className="w-full max-w-3xl h-[520px] surface-elevated rounded-xl overflow-hidden flex flex-col md:flex-row relative z-10"
+          className="w-full max-w-3xl h-[520px] bg-neutral-950 border border-neutral-800 rounded-xl overflow-hidden flex flex-col md:flex-row relative z-10"
         >
           {/* ═══════════════════════════════════
               LEFT PANEL — Pipeline & Status
@@ -106,15 +106,15 @@ const LoadingOverlay = ({ isVisible, mode = 'creation' }) => {
             {/* Header — static, never changes */}
             <div className="shrink-0 mb-6">
               <div className="flex items-center gap-2 mb-1.5">
-                <span className="h-1.5 w-1.5 rounded-full bg-indigo-500 animate-pulse" />
-                <span className="text-[11px] font-medium tracking-wide text-indigo-400 uppercase">
+                <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />
+                <span className="text-[11px] font-medium tracking-wide text-neutral-400 uppercase">
                   AI Orchestration Active
                 </span>
               </div>
               <h2 className="text-lg font-semibold tracking-tight text-white">
                 Multi-Agent Workflow
               </h2>
-              <p className="text-sm text-slate-500 mt-1">
+              <p className="text-sm text-neutral-500 mt-1">
                 Strategic processing pipeline — {mode === 'creation' ? 'workspace creation' : 'organizational analysis'}
               </p>
             </div>
@@ -132,10 +132,10 @@ const LoadingOverlay = ({ isVisible, mode = 'creation' }) => {
                     <div
                       className={`w-7 h-7 rounded-full border flex items-center justify-center shrink-0 transition-all duration-500 ${
                         isCurrent
-                          ? 'bg-indigo-500/10 border-indigo-500/40 text-indigo-400'
+                          ? 'bg-neutral-900 border-neutral-700 text-white'
                           : isCompleted
-                          ? 'bg-emerald-500/8 border-emerald-500/25 text-emerald-400'
-                          : 'bg-slate-800/30 border-slate-700/40 text-slate-600'
+                          ? 'bg-neutral-800 border-neutral-700 text-neutral-400'
+                          : 'bg-neutral-950 border-neutral-800 text-neutral-600'
                       }`}
                     >
                       {isCompleted ? (
@@ -148,7 +148,7 @@ const LoadingOverlay = ({ isVisible, mode = 'creation' }) => {
                     {/* Step label */}
                     <span
                       className={`text-sm transition-colors duration-500 ${
-                        isCurrent ? 'text-white font-medium' : isCompleted ? 'text-slate-400' : 'text-slate-600'
+                        isCurrent ? 'text-white font-medium' : isCompleted ? 'text-neutral-400' : 'text-neutral-600'
                       }`}
                     >
                       {step.name}
@@ -173,25 +173,25 @@ const LoadingOverlay = ({ isVisible, mode = 'creation' }) => {
                     transition={{ duration: 0.3 }}
                     className="flex items-center gap-3"
                   >
-                    <div className="w-8 h-8 rounded-lg bg-indigo-500/8 border border-indigo-500/15 flex items-center justify-center text-indigo-400 shrink-0">
+                    <div className="w-8 h-8 rounded-lg bg-neutral-900 border border-neutral-800 flex items-center justify-center text-white shrink-0">
                       <CurrentIcon className="w-4 h-4" />
                     </div>
                     <div className="min-w-0">
                       <p className="text-sm font-medium text-white truncate">{currentStep.name}</p>
-                      <p className="text-xs text-slate-500 truncate">{currentStep.desc}</p>
+                      <p className="text-xs text-neutral-500 truncate">{currentStep.desc}</p>
                     </div>
                   </motion.div>
                 </AnimatePresence>
               </div>
 
               {/* Progress bar — always at the same position */}
-              <div className="flex justify-between text-[11px] text-slate-500 mb-1.5">
+              <div className="flex justify-between text-[11px] text-neutral-500 mb-1.5">
                 <span>Progress</span>
                 <span>{progressPercent}%</span>
               </div>
-              <div className="w-full h-1 bg-slate-800 rounded-full overflow-hidden">
+              <div className="w-full h-1 bg-neutral-900 rounded-full overflow-hidden">
                 <motion.div
-                  className="h-full bg-indigo-500 rounded-full"
+                  className="h-full bg-white rounded-full"
                   animate={{ width: `${progressPercent}%` }}
                   transition={{ duration: 0.6, ease: 'easeOut' }}
                 />
@@ -203,24 +203,24 @@ const LoadingOverlay = ({ isVisible, mode = 'creation' }) => {
               RIGHT PANEL — Terminal Log
               Fixed width, internal scroll only
               ═══════════════════════════════════ */}
-          <div className="w-full md:w-[300px] shrink-0 bg-[#080d17] border-l border-slate-800/60 flex flex-col overflow-hidden">
+          <div className="w-full md:w-[300px] shrink-0 bg-black border-l border-neutral-800 flex flex-col overflow-hidden">
             {/* Terminal header — static */}
-            <div className="shrink-0 flex items-center justify-between px-4 py-3 border-b border-slate-800/60 text-slate-400">
+            <div className="shrink-0 flex items-center justify-between px-4 py-3 border-b border-neutral-800 text-neutral-400">
               <span className="flex items-center gap-1.5 text-xs font-medium">
-                <Terminal className="w-3.5 h-3.5 text-indigo-400" />
+                <Terminal className="w-3.5 h-3.5 text-white" />
                 System Log
               </span>
-              <span className="text-[10px] bg-slate-800/40 px-1.5 py-0.5 rounded text-slate-500">Live</span>
+              <span className="text-[10px] bg-neutral-900 px-1.5 py-0.5 rounded text-neutral-500">Live</span>
             </div>
 
             {/* Log entries — scrollable within fixed bounds */}
             <div className="flex-1 overflow-y-auto px-4 py-3 font-mono text-[11px] leading-relaxed space-y-1">
               {logs.map((log, idx) => {
-                let colorClass = 'text-slate-500';
+                let colorClass = 'text-neutral-500';
                 if (log.includes('✓') || log.includes('established')) {
-                  colorClass = 'text-emerald-400/80';
+                  colorClass = 'text-neutral-300';
                 } else if (log.includes('Running') || log.includes('Starting')) {
-                  colorClass = 'text-indigo-400/80';
+                  colorClass = 'text-white';
                 }
 
                 return (
@@ -237,9 +237,9 @@ const LoadingOverlay = ({ isVisible, mode = 'creation' }) => {
               })}
               <div ref={logsEndRef} />
               {/* Cursor */}
-              <div className="flex items-center gap-1 text-slate-600 mt-0.5">
+              <div className="flex items-center gap-1 text-neutral-600 mt-0.5">
                 <span className="text-[10px]">$</span>
-                <span className="w-1 h-3 bg-indigo-500/40 animate-pulse" />
+                <span className="w-1 h-3 bg-white/40 animate-pulse" />
               </div>
             </div>
           </div>

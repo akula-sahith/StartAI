@@ -5,9 +5,11 @@ import { HelpCircle, Network, FileCode2, Sparkles, Cpu } from 'lucide-react';
 import UploadZone from '../components/UploadZone';
 import LoadingOverlay from '../components/LoadingOverlay';
 import { workspaceService } from '../services/api';
+import { useAuth } from '../context/AuthContext';
 
 const OptimizeStartup = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [selectedFile, setSelectedFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -47,6 +49,7 @@ const OptimizeStartup = () => {
     } catch (err) {
       console.error(err);
       setError(
+        err.response?.data?.detail ||
         err.response?.data?.error ||
         err.response?.data?.message ||
         'Failed to connect to the API server.'
@@ -56,26 +59,26 @@ const OptimizeStartup = () => {
   };
 
   return (
-    <div className="relative min-h-[85vh] py-12 px-6 flex items-center justify-center overflow-hidden">
+    <div className="relative min-h-[85vh] py-12 px-6 flex items-center justify-center overflow-hidden bg-black">
       <LoadingOverlay isVisible={loading} mode="optimization" />
 
       <div className="relative z-10 w-full max-w-xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="surface-elevated rounded-xl p-8 md:p-10 relative overflow-hidden"
+          className="bg-neutral-950 border border-neutral-800 rounded-xl p-8 md:p-10 relative overflow-hidden"
         >
           <div className="flex items-center gap-3 mb-6">
-            <div className="p-2.5 rounded-lg bg-violet-500/8 border border-violet-500/15 text-violet-400">
+            <div className="p-2.5 rounded-lg bg-neutral-900 border border-neutral-800 text-neutral-300">
               <Network className="w-5 h-5" />
             </div>
             <div>
-              <span className="text-[11px] font-medium tracking-wide text-slate-500 block uppercase">Workspace Optimization</span>
+              <span className="text-[11px] font-medium tracking-wide text-neutral-500 block uppercase">Workspace Optimization</span>
               <h2 className="text-xl font-bold text-white tracking-tight">Analyze Existing Startup</h2>
             </div>
           </div>
 
-          <p className="text-slate-400 text-sm leading-relaxed mb-6">
+          <p className="text-neutral-400 text-sm leading-relaxed mb-6">
             Upload your company's pitch deck or operational documents. AI agents will analyze bottlenecks, model infrastructure workloads, assess margins, and generate strategic recommendations.
           </p>
 
@@ -83,7 +86,7 @@ const OptimizeStartup = () => {
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mb-6 p-4 rounded-lg bg-red-500/8 border border-red-500/15 text-red-400 text-sm"
+              className="mb-6 p-4 rounded-lg bg-neutral-900 border border-neutral-700 text-neutral-300 text-sm"
             >
               <div className="font-semibold mb-1">Error</div>
               {error}
@@ -98,11 +101,11 @@ const OptimizeStartup = () => {
               disabled={!selectedFile || loading}
               className={`w-full font-semibold py-3.5 px-6 rounded-lg flex items-center justify-center gap-2 transition-all duration-300 ${
                 selectedFile && !loading
-                  ? 'bg-indigo-600 hover:bg-indigo-500 text-white cursor-pointer active:scale-[0.98]'
-                  : 'bg-slate-800 border border-slate-700/50 text-slate-500 cursor-not-allowed'
+                  ? 'bg-white hover:bg-neutral-200 text-black cursor-pointer active:scale-[0.98]'
+                  : 'bg-neutral-900 border border-neutral-800 text-neutral-500 cursor-not-allowed'
               }`}
             >
-              <Cpu className={`w-4 h-4 ${selectedFile && !loading ? '' : ''}`} />
+              <Cpu className="w-4 h-4" />
               <span>Upload & Analyze</span>
             </button>
           </div>

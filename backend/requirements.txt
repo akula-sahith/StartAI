@@ -6,7 +6,7 @@ pydantic
 pypdf
 python-multipart
 python-dotenv
-
+firebase-admin
 langgraph
 langchain
 langchain_google_genai

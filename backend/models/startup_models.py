@@ -1,4 +1,5 @@
-from sqlalchemy import Column, Integer, String, JSON
+from sqlalchemy import Column, Integer, String, JSON, DateTime
+from datetime import datetime
 
 from services.database import Base
 
@@ -18,3 +19,12 @@ class StartupWorkspace(Base):
     startup_description = Column(String)
 
     startup_state = Column(JSON)
+
+    # User ownership fields
+    user_uid = Column(String, index=True)
+
+    user_email = Column(String)
+
+    user_name = Column(String)
+
+    created_at = Column(DateTime, default=datetime.utcnow)

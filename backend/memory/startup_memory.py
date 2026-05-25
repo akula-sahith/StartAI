@@ -8,7 +8,10 @@ def create_workspace(
     startup_name: str,
     mode: str,
     domain: str,
-    startup_description: str
+    startup_description: str,
+    user_uid: str = None,
+    user_email: str = None,
+    user_name: str = None
 ):
 
     workspace = StartupWorkspace(
@@ -16,6 +19,9 @@ def create_workspace(
         mode=mode,
         domain=domain,
         startup_description=startup_description,
+        user_uid=user_uid,
+        user_email=user_email,
+        user_name=user_name,
         startup_state={
             "architecture": {},
             "finance": {},
